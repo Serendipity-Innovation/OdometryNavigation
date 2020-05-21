@@ -103,7 +103,7 @@ public class OdometryTest extends OpMode
         telemetry.addData("Wheel1Value1", wheelPosition1);
         telemetry.addData("Wheel1Value2", wheelPosition2);
         Orientation angle = gyroscope.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.RADIANS);
-        telemetry.addData("Gyroscope", angle;
+        telemetry.addData("Gyroscope", angle);
 
 
 
