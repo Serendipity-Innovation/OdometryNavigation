@@ -35,6 +35,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.drivetrain.DrivetrainWheel;
 import org.firstinspires.ftc.teamcode.odometry.OdometryHardware;
 
@@ -67,7 +69,8 @@ public class OdometryTest extends OpMode
         wheelOdometry1 = odometryHardware.getWheelOdometry1();
         wheelOdometry2 = odometryHardware.getWheelOdometry2();
         gyroscope = odometryHardware.getGyroscope();
-        telemetry.addData("Status", "Initialized");
+        gyroscope.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        telemetry.update();
     }
 
     /*
@@ -95,6 +98,7 @@ public class OdometryTest extends OpMode
         int wheelPosition2 = wheelOdometry2.getCurrentPosition();
         telemetry.addData("Wheel1Value1", wheelPosition1);
         telemetry.addData("Wheel1Value2", wheelPosition2);
+        telemetry.addData("Gyroscope", gyroscope.getPosition().toString());
 
 
         // Show the elapsed game time
