@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.teamcode.odometry;
 
+import java.util.ArrayList;
+
 public class OdometryCalculations {
     // Declare class Instances
     double radiansAngle;
     double wheelDeltaX;
     double wheelDeltaY;
-    double radiusWheel1 = 1;
-    double radiusWheel2 = 1;
     double previousCoordinateX;
     double previousCoordinateY;
+    double radiusWheel1 = 1;
+    double radiusWheel2 = 1;
 
     // Getter functions
     public double getRadiansAngle(){
@@ -57,7 +59,6 @@ public class OdometryCalculations {
     }
 
 
-
     // Local(intrinsic) Wheel Displacement
     public double getDeltaX(){
         double arcDelta = Math.toRadians(radiansAngle) * radiusWheel1;
@@ -71,7 +72,7 @@ public class OdometryCalculations {
         return deltaY;
     }
 
-    // Add local wheel diplacement to previous coordinate to get local coordinate
+    // Add local wheel displacement to previous coordinate to get local coordinate
     public double getLocalCoordinate(double previousCoordinate, double delta){
         double localCoordinate = previousCoordinate + delta;
         return localCoordinate;
@@ -79,19 +80,35 @@ public class OdometryCalculations {
 
     // Change the localCoordinate into a global Coordinate by rotating the 2D point by theta
     // Formulas derived from rotating a 2D point formula about arbitrary point
-    public double getGlobalX(double localCoordinateX, double localCoordinateY, double angle){
-        double globalX = ((localCoordinateX - previousCoordinateX) * Math.cos(angle)) -
-                ((localCoordinateY - previousCoordinateY) * Math.sin(angle)) + previousCoordinateX;
+    public double getGlobalX(double localCoordinateX, double localCoordinateY){
+        double globalX = ((localCoordinateX - previousCoordinateX) * Math.cos(radiansAngle)) -
+                ((localCoordinateY - previousCoordinateY) * Math.sin(radiansAngle)) + previousCoordinateX;
         return globalX;
     }
 
-    public double getGlobalY(double localCoordinateX,
-                             double localCoordinateY, double angle) {
-        double globalY = ((localCoordinateX - previousCoordinateX) * Math.sin(angle)) +
-                ((localCoordinateY - previousCoordinateY) * Math.cos(angle)) + previousCoordinateY;
+    public double getGlobalY(double localCoordinateX, double localCoordinateY) {
+        double globalY = ((localCoordinateX - previousCoordinateX) * Math.sin(radiansAngle)) +
+                ((localCoordinateY - previousCoordinateY) * Math.cos(radiansAngle)) + previousCoordinateY;
         return globalY;
     }
 
+    public ArrayList getGlobalPosition(){
+        // Get local coordinates
+        double deltaX = getDeltaX();
+        double localCoordinateX = getLocalCoordinate(previousCoordinateX, deltaX);
+
+        double deltaY = getDeltaY();
+        double localCoordinateY = getLocalCoordinate(previousCoordinateY, deltaY);
+
+        // Add global coordinates to a list
+        double globalX = getGlobalX(localCoordinateX, localCoordinateY);
+        double globalY = getGlobalY(localCoordinateX, localCoordinateY);
+
+        ArrayList globalCoordinates = new ArrayList();
+        globalCoordinates.add(globalX);
+        globalCoordinates.add(globalY);
+        return globalCoordinates;
+    }
 
     /* // older method
     // Getting the distance the robot moved

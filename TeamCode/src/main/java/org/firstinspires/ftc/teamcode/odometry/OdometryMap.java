@@ -6,11 +6,17 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.ArrayList;
 
-public class OdometryHardware {
+public class OdometryMap {
+    // Declare class Instances
+    double radiansAngle;
+    double wheelDeltaX;
+    double wheelDeltaY;
+    double previousCoordinateX;
+    double previousCoordinateY;
     DcMotor wheelOdometry1 = null;
     DcMotor wheelOdometry2 = null;
     BNO055IMU gyroscope = null;
-    public OdometryHardware(HardwareMap hardwareMap){
+    public OdometryMap(HardwareMap hardwareMap){
         wheelOdometry1 = hardwareMap.get(DcMotor.class, "wheelOdometry1");
         wheelOdometry2 = hardwareMap.get(DcMotor.class, "wheelOdometry2");
         gyroscope = hardwareMap.get(BNO055IMU.class, "gyroscope");
