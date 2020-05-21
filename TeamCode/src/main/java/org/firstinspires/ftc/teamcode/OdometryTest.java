@@ -32,11 +32,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.drivetrain.DrivetrainWheel;
+import org.firstinspires.ftc.teamcode.odometry.OdometryHardware;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -54,11 +54,8 @@ import org.firstinspires.ftc.teamcode.drivetrain.DrivetrainWheel;
 
 @Autonomous(name="AutonomousDemo", group="Iterative Opmode")
 //@Disabled
-public class AutonomousDemo extends OpMode
+public class OdometryTest extends OpMode
 {
-    private DcMotor autonomousLeftWheel = null;
-    private DcMotor autonomousRightWheel = null;
-    private DrivetrainWheel autonomousWheels = null;
     DcMotor wheelOdometry1 = null;
     DcMotor wheelOdometry2 = null;
     BNO055IMU gyroscope = null;
@@ -66,10 +63,10 @@ public class AutonomousDemo extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     @Override
     public void init() {
-        DrivetrainWheel MotorBoatDrivetrain = new DrivetrainWheel(hardwareMap);
-        autonomousWheels = MotorBoatDrivetrain;
-        autonomousLeftWheel = MotorBoatDrivetrain.getLeftWheel();
-        autonomousRightWheel = MotorBoatDrivetrain.getRightWheel();
+        OdometryHardware odometryHardware = new OdometryHardware(hardwareMap);
+        wheelOdometry1 = odometryHardware.getWheelOdometry1();
+        wheelOdometry2 = odometryHardware.getWheelOdometry2();
+        gyroscope = odometryHardware.getGyroscope();
         telemetry.addData("Status", "Initialized");
     }
 
@@ -94,16 +91,16 @@ public class AutonomousDemo extends OpMode
     @Override
     public void loop() {
         //drive in the shape of a square
-        for (int i = 0; i<4; i++){
-            autonomousWheels.moveWheelsFeetPower(2);
-            autonomousWheels.turnTowardsAngle(90);
-        }
+        int wheelPosition1 = wheelOdometry1.getCurrentPosition();
+        int wheelPosition2 = wheelOdometry2.getCurrentPosition();
+        telemetry.addData("Wheel1Value1", wheelPosition1);
+        telemetry.addData("Wheel1Value2", wheelPosition2);
+
 
         // Show the elapsed game time
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-       // telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        // telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
     }
-
     /*
      * Code to run ONCE after the driver hits STOP
      */

@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.ArrayList;
 
-public class OdometryCalculations {
+public class OdometryHardware {
     DcMotor wheelOdometry1 = null;
     DcMotor wheelOdometry2 = null;
     BNO055IMU gyroscope = null;
-    public OdometryCalculations(HardwareMap hardwareMap){
+    public OdometryHardware(HardwareMap hardwareMap){
         wheelOdometry1 = hardwareMap.get(DcMotor.class, "wheelOdometry1");
         wheelOdometry2 = hardwareMap.get(DcMotor.class, "wheelOdometry2");
         gyroscope = hardwareMap.get(BNO055IMU.class, "gyroscope");
@@ -23,6 +23,18 @@ public class OdometryCalculations {
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         gyroscope.initialize(parameters);
+    }
+    // Getter Functions
+    public DcMotor getWheelOdometry1(){
+        return wheelOdometry1;
+    }
+
+    public DcMotor getWheelOdometry2(){
+        return wheelOdometry2;
+    }
+
+    public BNO055IMU getGyroscope(){
+        return gyroscope;
     }
 
     // Getting the distance the robot moved
