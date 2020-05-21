@@ -52,7 +52,7 @@ import org.firstinspires.ftc.teamcode.odometry.OdometryHardware;
  * Remove or comment out the @Disabled line to add this opmode to the Drive r Station OpMode list
  */
 
-@Autonomous(name="AutonomousDemo", group="Iterative Opmode")
+@Autonomous(name="OdometryTest", group="Iterative Opmode")
 //@Disabled
 public class OdometryTest extends OpMode
 {
