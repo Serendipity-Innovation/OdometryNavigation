@@ -2,24 +2,72 @@ package org.firstinspires.ftc.teamcode.odometry;
 
 public class OdometryCalculations {
     // Declare class Instances
-    double angle;
-    double deltaX;
-    double deltaY;
-    double radiusWheel1;
-    double radiusWheel2;
+    double radiansAngle;
+    double wheelDeltaX;
+    double wheelDeltaY;
+    double radiusWheel1 = 1;
+    double radiusWheel2 = 1;
     double previousCoordinateX;
     double previousCoordinateY;
 
+    // Getter functions
+    public double getRadiansAngle(){
+        return radiansAngle;
+    }
+
+    public double getNewRadiansAngle(double newRadiansAngle){
+        radiansAngle = newRadiansAngle;
+        return radiansAngle;
+    }
+
+    public double getWheelDeltaX(){
+        return wheelDeltaX;
+    }
+
+    public double getNewWheelDeltaX(double newWheelDeltaX){
+        wheelDeltaX = newWheelDeltaX;
+        return wheelDeltaX;
+    }
+
+    public double getWheelDeltaY(){
+        return wheelDeltaY;
+    }
+
+    public double getNewWheelDeltaY(double newWheelDeltaY) {
+        wheelDeltaY = newWheelDeltaY;
+        return wheelDeltaY;
+    }
+
+    public double getPreviousCoordinateX(){
+        return previousCoordinateX;
+    }
+
+    public double getNewPreviousCoordinateX(double newPreviousCoordinateX) {
+        previousCoordinateX = newPreviousCoordinateX;
+        return previousCoordinateX;
+    }
+
+    public double getPreviousCoordinateY(){
+        return previousCoordinateY;
+    }
+
+    public double getNewPreviousCoordinateY(double newPreviousCoordinateY) {
+        previousCoordinateY = newPreviousCoordinateY;
+        return previousCoordinateY;
+    }
+
+
+
     // Local(intrinsic) Wheel Displacement
-    public double getDeltaX(int wheelDelta, double degrees, double radius){
-        double arcDelta = Math.toRadians(degrees) * radius;
-        double deltaX = wheelDelta - arcDelta;
+    public double getDeltaX(){
+        double arcDelta = Math.toRadians(radiansAngle) * radiusWheel1;
+        double deltaX = wheelDeltaX - arcDelta;
         return deltaX;
     }
 
-    public double getDeltaY(int wheelDelta, double degrees, double radius){
-        double arcDelta = Math.toRadians(degrees) * radius;
-        double deltaY = wheelDelta - arcDelta;
+    public double getDeltaY(){
+        double arcDelta = Math.toRadians(radiansAngle) * radiusWheel2;
+        double deltaY = wheelDeltaY - arcDelta;
         return deltaY;
     }
 
@@ -31,15 +79,14 @@ public class OdometryCalculations {
 
     // Change the localCoordinate into a global Coordinate by rotating the 2D point by theta
     // Formulas derived from rotating a 2D point formula about arbitrary point
-    public double getGlobalX(double localCoordinateX, double previousCoordinateX,
-                             double localCoordinateY, double previousCoordinateY, double angle){
+    public double getGlobalX(double localCoordinateX, double localCoordinateY, double angle){
         double globalX = ((localCoordinateX - previousCoordinateX) * Math.cos(angle)) -
                 ((localCoordinateY - previousCoordinateY) * Math.sin(angle)) + previousCoordinateX;
         return globalX;
     }
 
-    public double getGlobalY(double localCoordinateX, double previousCoordinateX,
-                             double localCoordinateY, double previousCoordinateY, double angle) {
+    public double getGlobalY(double localCoordinateX,
+                             double localCoordinateY, double angle) {
         double globalY = ((localCoordinateX - previousCoordinateX) * Math.sin(angle)) +
                 ((localCoordinateY - previousCoordinateY) * Math.cos(angle)) + previousCoordinateY;
         return globalY;
