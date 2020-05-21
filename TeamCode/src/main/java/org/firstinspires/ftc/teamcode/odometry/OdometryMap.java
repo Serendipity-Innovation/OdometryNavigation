@@ -29,7 +29,7 @@ public class OdometryMap {
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         gyroscope.initialize(parameters);
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
     }
     // Getter Functions
     public DcMotor getWheelOdometry1(){

@@ -97,7 +97,7 @@ public class OdometryTest extends OpMode
         int wheelPosition2 = wheelOdometry2.getCurrentPosition();
         telemetry.addData("Wheel1Value1", wheelPosition1);
         telemetry.addData("Wheel1Value2", wheelPosition2);
-        telemetry.addData("Gyroscope", gyroscope.getPosition().toString());
+        telemetry.addData("Gyroscope", gyroscope.getAngularOrientation());
 
 
         // Show the elapsed game time

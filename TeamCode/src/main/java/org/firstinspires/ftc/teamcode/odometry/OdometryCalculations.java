@@ -7,8 +7,8 @@ public class OdometryCalculations {
     double radiansAngle;
     double wheelDeltaX;
     double wheelDeltaY;
-    double previousCoordinateX;
-    double previousCoordinateY;
+    double previousCoordinateX = 0;
+    double previousCoordinateY = 0;
     double radiusWheel1 = 1;
     double radiusWheel2 = 1;
 
@@ -92,7 +92,7 @@ public class OdometryCalculations {
         return globalY;
     }
 
-    public ArrayList getGlobalPosition(){
+    public ArrayList getGlobalPositionAndResetPreviousPosition(){
         // Get local coordinates
         double deltaX = getDeltaX();
         double localCoordinateX = getLocalCoordinate(previousCoordinateX, deltaX);
@@ -103,6 +103,10 @@ public class OdometryCalculations {
         // Add global coordinates to a list
         double globalX = getGlobalX(localCoordinateX, localCoordinateY);
         double globalY = getGlobalY(localCoordinateX, localCoordinateY);
+
+        // Reset the previousCoordinates to now be the current globalCoordiantes
+        getNewPreviousCoordinateX(globalX);
+        getNewPreviousCoordinateY(globalY);
 
         ArrayList globalCoordinates = new ArrayList();
         globalCoordinates.add(globalX);
