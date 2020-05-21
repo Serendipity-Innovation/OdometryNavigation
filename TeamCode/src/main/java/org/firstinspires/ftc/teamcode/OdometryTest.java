@@ -32,9 +32,14 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.odometry.OdometryMap;
@@ -53,7 +58,7 @@ import org.firstinspires.ftc.teamcode.odometry.OdometryMap;
  * Remove or comment out the @Disabled line to add this opmode to the Drive r Station OpMode list
  */
 
-@Autonomous(name="OdometryTest", group="Iterative Opmode")
+@TeleOp(name="OdometryTest", group="Iterative Opmode")
 //@Disabled
 public class OdometryTest extends OpMode
 {
@@ -97,7 +102,9 @@ public class OdometryTest extends OpMode
         int wheelPosition2 = wheelOdometry2.getCurrentPosition();
         telemetry.addData("Wheel1Value1", wheelPosition1);
         telemetry.addData("Wheel1Value2", wheelPosition2);
-        telemetry.addData("Gyroscope", gyroscope.getAngularOrientation());
+        Orientation angle = gyroscope.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.RADIANS);
+        telemetry.addData("Gyroscope", angle;
+
 
 
         // Show the elapsed game time

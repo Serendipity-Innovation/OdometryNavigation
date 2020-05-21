@@ -30,6 +30,7 @@ public class OdometryMap {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         gyroscope.initialize(parameters);
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
     }
     // Getter Functions
     public DcMotor getWheelOdometry1(){
