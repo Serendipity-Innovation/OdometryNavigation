@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.odometry;
 
 import java.util.ArrayList;
 
-public class OdometryCalculations {
+public class OdometryCalculationsPerpendicular {
     // Declare class Instances
     double radiansAngle;
     double wheelDeltaX;
