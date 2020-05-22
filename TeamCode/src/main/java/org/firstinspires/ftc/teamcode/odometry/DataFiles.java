@@ -64,9 +64,11 @@ public class DataFiles {
 
         // Add the values into the odometryGraphData file
         addData(graphData, stringValue1, stringValue2);
+        graphData.close();
 
         // Update the new version
         FileWriter versionFileWriter = new FileWriter(versionFile);
         updateVersion(version, versionFileWriter);
+        versionFileWriter.close();
     }
 }
