@@ -1,4 +1,6 @@
+// change path directory per computer
 package org.firstinspires.ftc.teamcode.odometry;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +41,7 @@ public class DataFiles {
             int versionIncrementInt = Integer.valueOf(version);
             versionIncrementInt ++;
             String versionIncrementString = Integer.toString(versionIncrementInt);
-            versionFileWriter.write("/n" + versionIncrementString);
+            versionFileWriter.write("\n" + versionIncrementString);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -70,6 +72,7 @@ public class DataFiles {
         addData(graphData, stringValue1);
         addData(graphData, stringValue2);
         addData(graphData, stringIsGermsDetected);
+        graphData.write("\n");
         graphData.close();
 
         // Update the new version
