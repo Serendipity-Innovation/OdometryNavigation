@@ -4,10 +4,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class shadowCaster {
+public class ShadowCaster {
     DcMotor linearActuator = null;
     Servo uvCover = null;
-    public shadowCaster (HardwareMap hardwareMap){
+    public ShadowCaster(HardwareMap hardwareMap){
         linearActuator  = hardwareMap.get(DcMotor.class, "linearActuator");
         uvCover = hardwareMap.get(Servo.class, "right_wheel");
 

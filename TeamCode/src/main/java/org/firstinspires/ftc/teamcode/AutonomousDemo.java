@@ -34,9 +34,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.attachments.ShadowCaster;
 import org.firstinspires.ftc.teamcode.drivetrain.DrivetrainWheel;
+import org.firstinspires.ftc.teamcode.odometry.OdometryCalculationsParallel;
+import org.firstinspires.ftc.teamcode.odometry.OdometryGraphing;
+
+import java.io.IOException;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -59,15 +65,25 @@ public class AutonomousDemo extends OpMode
     private DcMotor autonomousLeftWheel = null;
     private DcMotor autonomousRightWheel = null;
     private DrivetrainWheel autonomousWheels = null;
-    BNO055IMU gyroscope = null;
+    private ShadowCaster shadowCaster = null;
+    private DcMotor linearActuator = null;
+    private Servo uvCover = null;
+    private OdometryGraphing odometryGraph = null;
 
     private ElapsedTime runtime = new ElapsedTime();
     @Override
     public void init() {
+        // make drivetrain
         DrivetrainWheel MotorBoatDrivetrain = new DrivetrainWheel(hardwareMap);
         autonomousWheels = MotorBoatDrivetrain;
         autonomousLeftWheel = MotorBoatDrivetrain.getLeftWheel();
         autonomousRightWheel = MotorBoatDrivetrain.getRightWheel();
+
+        // make odometry
+        OdometryGraphing odometryGraph = new OdometryGraphing(hardwareMap);
+
+        // make shadowcaster
+        ShadowCaster shadowCaster = new ShadowCaster(hardwareMap);
         telemetry.addData("Status", "Initialized");
     }
 
@@ -91,16 +107,20 @@ public class AutonomousDemo extends OpMode
      */
     @Override
     public void loop() {
-        // Drive forward for 2 feet and scan for germs
-
-        for (int i = 0; i<4; i++){
-            autonomousWheels.moveWheelsFeetPower(2);
-            autonomousWheels.turnTowardsAngle(90);
+        autonomousWheels.moveWheelsFeetPower(2);
+        shadowCaster.moveLinearActuatorUp(1120);
+        shadowCaster.uncoverLight();
+        // DO CV DETECTION
+        try {
+            odometryGraph.graphData();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        shadowCaster.coverLight();
+        shadowCaster.moveLinearActuatorDown(1120);
 
-        // Show the elapsed game time
+        autonomousWheels.turnAngle(90);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-       // telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
     }
 
     /*

@@ -56,7 +56,7 @@ public class DrivetrainWheel {
         updateWheel(desiredFeet, rightWheel);
     }
 
-    public void turnTowardsAngle(double desiredAngle){
+    public void turnAngle(double desiredAngle){
         setPower(0.1);
         double desiredFeet = DrivetrainCalculations.getAngleToFeet(desiredAngle);
         updateWheel(desiredFeet, leftWheel);
