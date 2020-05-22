@@ -7,12 +7,13 @@ import java.util.ArrayList;
 public class OdometryCalculationsParallel {
     // Declare class Instances
     double theta;
-    double previousCoordinateX = 0;
-    double previousCoordinateY = 0;
     double leftWheelTurn;
     double rightWheelTurn;
     double trackWidth = 1;
 
+    // Automatically update in updatePosition Function
+    double previousCoordinateX = 0;
+    double previousCoordinateY = 0;
 
     // Getter functions
     public double getTheta(){
@@ -58,6 +59,14 @@ public class OdometryCalculationsParallel {
     public double getNewRightWheelTurn(double newRightWheelTurn) {
         rightWheelTurn = newRightWheelTurn;
         return rightWheelTurn;
+    }
+
+    // constructor call
+    public OdometryCalculationsParallel(double inputTheta, double inputLeftWheelTurn,
+                                        double inputRightWheelTurn){
+        theta = getNewTheta(inputTheta);
+        leftWheelTurn = getNewLeftWheelTurn(inputLeftWheelTurn);
+        rightWheelTurn = getNewRightWheelTurn(inputRightWheelTurn);
     }
 
     // Getting the radii
@@ -127,9 +136,9 @@ public class OdometryCalculationsParallel {
         return globalPosition;
     }
 
-    public void updatePosition(int newLeftWheelTurn, int newRightWheelTurn,
-                               ArrayList<Double> globalPosition) {
+    public void updatePosition(int newLeftWheelTurn, int newRightWheelTurn) {
         // Parse the global position
+        ArrayList<Double> globalPosition = new ArrayList<Double>();
         double newGlobalX = globalPosition.get(0);
         double newGlobalY = globalPosition.get(1);
         double newTheta = globalPosition.get(2);

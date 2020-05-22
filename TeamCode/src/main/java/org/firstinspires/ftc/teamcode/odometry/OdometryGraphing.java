@@ -4,6 +4,11 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,6 +21,7 @@ public class OdometryGraphing {
     DcMotor wheelOdometry1 = null;
     DcMotor wheelOdometry2 = null;
     BNO055IMU gyroscope = null;
+    Orientation angles;
     public OdometryGraphing(HardwareMap hardwareMap){
         wheelOdometry1 = hardwareMap.get(DcMotor.class, "wheelOdometry1");
         wheelOdometry2 = hardwareMap.get(DcMotor.class, "wheelOdometry2");
@@ -30,6 +36,8 @@ public class OdometryGraphing {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         gyroscope.initialize(parameters);
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        angles = gyroscope.getAngularOrientation(
+                AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.RADIANS);
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
     }
 
@@ -47,9 +55,17 @@ public class OdometryGraphing {
     }
 
     // Initialize class instances to get the coordinates based off of the wheel movements and IMU
+    double theta = angles.thirdAngle;
 
-    OdometryCalculationsParallel colsomWheels = new OdometryCalculationsParallel();
+    double previousWheelRightPosition = 0;
+    double leftWheelTurn = wheelOdometry1.getCurrentPosition() - previousWheelRightPosition;
+
+    double previousWheelLeftPosition = 0;
+    double rightWheelTurn = wheelOdometry2.getCurrentPosition() - previousWheelLeftPosition;
+
+    OdometryCalculationsParallel colsomWheels = new OdometryCalculationsParallel(theta, leftWheelTurn, rightWheelTurn);
     DataFiles odometryDataFile = new DataFiles();
+
     public void graphData() throws IOException {
         // Parse the list for global x, global y
         ArrayList<Double> globalPosition = new ArrayList();
@@ -60,8 +76,4 @@ public class OdometryGraphing {
         // make the file.txt with the positions
         odometryDataFile.writeGraphDataFileAndUpdateVersion(globalX, globalY);
     }
-
-
-
-
 }

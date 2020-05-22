@@ -59,8 +59,6 @@ public class AutonomousDemo extends OpMode
     private DcMotor autonomousLeftWheel = null;
     private DcMotor autonomousRightWheel = null;
     private DrivetrainWheel autonomousWheels = null;
-    DcMotor wheelOdometry1 = null;
-    DcMotor wheelOdometry2 = null;
     BNO055IMU gyroscope = null;
 
     private ElapsedTime runtime = new ElapsedTime();

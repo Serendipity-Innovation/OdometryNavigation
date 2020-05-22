@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -58,7 +59,7 @@ import org.firstinspires.ftc.teamcode.odometry.OdometryGraphing;
  */
 
 @TeleOp(name="OdometryTest", group="Iterative Opmode")
-//@Disabled
+@Disabled
 public class OdometryTest extends OpMode
 {
     DcMotor wheelOdometry1 = null;
