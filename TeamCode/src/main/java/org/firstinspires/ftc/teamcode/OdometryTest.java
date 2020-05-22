@@ -30,7 +30,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -42,7 +41,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.odometry.OdometryMap;
+import org.firstinspires.ftc.teamcode.odometry.OdometryMain;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -69,10 +68,10 @@ public class OdometryTest extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     @Override
     public void init() {
-        OdometryMap odometryMap = new OdometryMap(hardwareMap);
-        wheelOdometry1 = odometryMap.getWheelOdometry1();
-        wheelOdometry2 = odometryMap.getWheelOdometry2();
-        gyroscope = odometryMap.getGyroscope();
+        OdometryMain odometryMain = new OdometryMain(hardwareMap);
+        wheelOdometry1 = odometryMain.getWheelOdometry1();
+        wheelOdometry2 = odometryMain.getWheelOdometry2();
+        gyroscope = odometryMain.getGyroscope();
         gyroscope.startAccelerationIntegration(new Position(), new Velocity(), 1000);
         telemetry.update();
     }
