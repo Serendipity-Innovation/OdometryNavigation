@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class DataFiles {
+    // version File is the file that holds the version
+    File versionFile =  new File
+            ("/Users/JustKyle-ngaround/Desktop/odometryGraphData/version.txt");
+
     // Get Version of File
     public String getVersion(File filename) throws FileNotFoundException {
         try {
@@ -22,24 +26,44 @@ public class DataFiles {
         return null;
     }
 
-    // Writing files function
-    public void writeDataFile(String version) throws IOException {
-        try {
-            FileWriter graphData = new FileWriter("odometryMapData" + version + ".txt");
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+    // Making files function
+    public void makeDataFile(String version) throws IOException {
+        File graphData = new File(
+                "/Users/JustKyle-ngaround/Desktop/odometryGraphData/odometryMapData"
+                        + version + ".txt");
     }
 
     // Update version file
-    public void updateVersion(String version, FileWriter graphData) throws IOException {
+    public void updateVersion(String version, FileWriter versionFileWriter) throws IOException {
         try {
             int versionIncrementInt = Integer.valueOf(version);
             versionIncrementInt ++;
             String versionIncrementString = Integer.toString(versionIncrementInt);
-            graphData.write("/n" + versionIncrementString);
+            versionFileWriter.write("/n" + versionIncrementString);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    // Add data(will be odometry data) to a function
+    public void addData (FileWriter graphData, String value1, String value2) throws IOException {
+        graphData.append(value1 + "," + value2 + ",");
+    }
+
+    // Writing Data Files
+    public void writeGraphDataFile (String value1, String value2) throws IOException {
+        // Create the file and writer
+        String version = getVersion(versionFile);
+        makeDataFile(version);
+        FileWriter graphData = new FileWriter(
+                "/Users/JustKyle-ngaround/Desktop/odometryGraphData/odometryMapData"
+                + version + ".txt");
+
+        // Add the values into the odometryGraphData file
+        addData(graphData, value1, value2);
+
+        // Update the new version
+        FileWriter versionFileWriter = new FileWriter(versionFile);
+        updateVersion(version, versionFileWriter);
     }
 }
