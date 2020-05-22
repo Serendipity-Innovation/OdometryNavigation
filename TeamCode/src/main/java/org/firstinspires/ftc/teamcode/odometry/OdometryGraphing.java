@@ -66,7 +66,7 @@ public class OdometryGraphing {
     OdometryCalculationsParallel colsomWheels = new OdometryCalculationsParallel(theta, leftWheelTurn, rightWheelTurn);
     DataFiles odometryDataFile = new DataFiles();
 
-    public void graphData() throws IOException {
+    public void graphData(boolean isDetectGerms) throws IOException {
         // Parse the list for global x, global y
         ArrayList<Double> globalPosition = new ArrayList();
         globalPosition = colsomWheels.getGlobalCoordinates();
@@ -74,6 +74,6 @@ public class OdometryGraphing {
         double globalY = globalPosition.get(1);
 
         // make the file.txt with the positions
-        odometryDataFile.writeGraphDataFileAndUpdateVersion(globalX, globalY);
+        odometryDataFile.writeGraphDataFileAndUpdateVersion(globalX, globalY, isDetectGerms);
     }
 }

@@ -46,15 +46,19 @@ public class DataFiles {
     }
 
     // Add data(will be odometry data) to a function
-    public void addData (FileWriter graphData, String value1, String value2) throws IOException {
-        graphData.append(value1 + "," + value2 + ",");
+    public void addData (FileWriter graphData, String value) throws IOException {
+        graphData.append(value + ",");
     }
 
     // Writing Data Files
-    public void writeGraphDataFileAndUpdateVersion (double value1, double value2) throws IOException {
+    public void writeGraphDataFileAndUpdateVersion (double value1, double value2,
+                                                    boolean isGermsDetected) throws IOException {
         // Make the coordinates which are doubles to strings
         String stringValue1 = Double.toString(value1);
         String stringValue2 = Double.toString(value2);
+
+        // Make the boolean a string
+        String stringIsGermsDetected = Boolean.toString(isGermsDetected);
         // Create the file and writer
         String version = getVersion(versionFile);
         makeDataFile(version);
@@ -63,7 +67,9 @@ public class DataFiles {
                 + version + ".txt");
 
         // Add the values into the odometryGraphData file
-        addData(graphData, stringValue1, stringValue2);
+        addData(graphData, stringValue1);
+        addData(graphData, stringValue2);
+        addData(graphData, stringIsGermsDetected);
         graphData.close();
 
         // Update the new version

@@ -111,8 +111,9 @@ public class AutonomousDemo extends OpMode
         shadowCaster.moveLinearActuatorUp(1120);
         shadowCaster.uncoverLight();
         // DO CV DETECTION
+        boolean detectedGerms = true; // change this with the real cv detection boolean
         try {
-            odometryGraph.graphData();
+            odometryGraph.graphData(detectedGerms);
         } catch (IOException e) {
             e.printStackTrace();
         }
