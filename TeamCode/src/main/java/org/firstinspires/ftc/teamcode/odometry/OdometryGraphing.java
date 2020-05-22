@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OdometryGraphing {
@@ -45,6 +46,20 @@ public class OdometryGraphing {
         return gyroscope;
     }
 
+    // Initialize class instances to get the coordinates based off of the wheel movements and IMU
+
+    OdometryCalculationsParallel colsomWheels = new OdometryCalculationsParallel();
+    DataFiles odometryDataFile = new DataFiles();
+    public void graphData() throws IOException {
+        // Parse the list for global x, global y
+        ArrayList<Double> globalPosition = new ArrayList();
+        globalPosition = colsomWheels.getGlobalCoordinates();
+        double globalX = globalPosition.get(0);
+        double globalY = globalPosition.get(1);
+
+        // make the file.txt with the positions
+        odometryDataFile.writeGraphDataFileAndUpdateVersion(globalX, globalY);
+    }
 
 
 

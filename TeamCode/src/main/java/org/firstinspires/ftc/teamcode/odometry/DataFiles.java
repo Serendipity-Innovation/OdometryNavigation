@@ -51,7 +51,10 @@ public class DataFiles {
     }
 
     // Writing Data Files
-    public void writeGraphDataFile (String value1, String value2) throws IOException {
+    public void writeGraphDataFileAndUpdateVersion (double value1, double value2) throws IOException {
+        // Make the coordinates which are doubles to strings
+        String stringValue1 = Double.toString(value1);
+        String stringValue2 = Double.toString(value2);
         // Create the file and writer
         String version = getVersion(versionFile);
         makeDataFile(version);
@@ -60,7 +63,7 @@ public class DataFiles {
                 + version + ".txt");
 
         // Add the values into the odometryGraphData file
-        addData(graphData, value1, value2);
+        addData(graphData, stringValue1, stringValue2);
 
         // Update the new version
         FileWriter versionFileWriter = new FileWriter(versionFile);
