@@ -91,7 +91,8 @@ public class AutonomousDemo extends OpMode
      */
     @Override
     public void loop() {
-        //drive in the shape of a square
+        // Drive forward for 2 feet and scan for germs
+
         for (int i = 0; i<4; i++){
             autonomousWheels.moveWheelsFeetPower(2);
             autonomousWheels.turnTowardsAngle(90);
