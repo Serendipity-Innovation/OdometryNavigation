@@ -41,7 +41,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.odometry.OdometryMain;
+import org.firstinspires.ftc.teamcode.odometry.OdometryGraphing;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -68,7 +68,7 @@ public class OdometryTest extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     @Override
     public void init() {
-        OdometryMain odometryMain = new OdometryMain(hardwareMap);
+        OdometryGraphing odometryMain = new OdometryGraphing(hardwareMap);
         wheelOdometry1 = odometryMain.getWheelOdometry1();
         wheelOdometry2 = odometryMain.getWheelOdometry2();
         gyroscope = odometryMain.getGyroscope();
