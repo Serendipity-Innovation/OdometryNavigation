@@ -139,6 +139,7 @@ public class OdometryCalculationsParallel {
     public void updatePosition(int newLeftWheelTurn, int newRightWheelTurn) {
         // Parse the global position
         ArrayList<Double> globalPosition = new ArrayList<Double>();
+        globalPosition = getGlobalCoordinates();
         double newGlobalX = globalPosition.get(0);
         double newGlobalY = globalPosition.get(1);
         double newTheta = globalPosition.get(2);
