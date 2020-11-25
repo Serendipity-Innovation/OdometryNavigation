@@ -15,6 +15,48 @@ public class OdometryCalculationsParallel {
     double previousCoordinateX = 0;
     double previousCoordinateY = 0;
 
+    // Get the new global x and y position and update it to the class instances
+    public ArrayList<Double> getGlobalCoordinates () {
+        // Get radii
+        double phi = getPhi();
+        double radiusLeft = getRadiusLeft(phi);
+        double radiusRight = getRadiusRight(phi);
+        double radiusCenter = getRadiusCenter(radiusLeft, radiusRight);
+
+        // Get center of rotations
+        double centerOfRotationX = getCenterRotationX(phi);
+        double centerOfRotationY = getCenterRotationY(phi);
+
+        // Get new Coordinates
+        double globalX = getGlobalX(centerOfRotationX, phi, radiusCenter);
+        double globalY = getGlobalY(centerOfRotationY, phi, radiusCenter);
+        double newTheta = theta + phi;
+
+        // Return in a list
+        ArrayList<Double> globalPosition = new ArrayList();
+        globalPosition.add(globalX);
+        globalPosition.add(globalY);
+        globalPosition.add(newTheta);
+        return globalPosition;
+    }
+
+    public void updatePosition(int newLeftWheelTurn, int newRightWheelTurn) {
+        // Parse the global position
+        ArrayList<Double> globalPosition = new ArrayList<Double>();
+        globalPosition = getGlobalCoordinates();
+        double newGlobalX = globalPosition.get(0);
+        double newGlobalY = globalPosition.get(1);
+        double newTheta = globalPosition.get(2);
+
+        // Update all the values
+        theta = newTheta;
+        previousCoordinateX = newGlobalX;
+        previousCoordinateY = newGlobalY;
+        leftWheelTurn = newLeftWheelTurn;
+        rightWheelTurn = newRightWheelTurn;
+        // todo implement into original code, make it update aka
+    }
+
     // Getter functions
     public double getTheta(){
         return theta;
@@ -111,46 +153,7 @@ public class OdometryCalculationsParallel {
         return globalY;
     }
 
-    // Get the new global x and y position and update it to the class instances
-    public ArrayList<Double> getGlobalCoordinates () {
-        // Get radii
-        double phi = getPhi();
-        double radiusLeft = getRadiusLeft(phi);
-        double radiusRight = getRadiusRight(phi);
-        double radiusCenter = getRadiusCenter(radiusLeft, radiusRight);
 
-        // Get center of rotations
-        double centerOfRotationX = getCenterRotationX(phi);
-        double centerOfRotationY = getCenterRotationY(phi);
-
-        // Get new Coordinates
-        double globalX = getGlobalX(centerOfRotationX, phi, radiusCenter);
-        double globalY = getGlobalY(centerOfRotationY, phi, radiusCenter);
-        double newTheta = theta + phi;
-
-        // Return in a list
-        ArrayList<Double> globalPosition = new ArrayList();
-        globalPosition.add(globalX);
-        globalPosition.add(globalY);
-        globalPosition.add(newTheta);
-        return globalPosition;
-    }
-
-    public void updatePosition(int newLeftWheelTurn, int newRightWheelTurn) {
-        // Parse the global position
-        ArrayList<Double> globalPosition = new ArrayList<Double>();
-        globalPosition = getGlobalCoordinates();
-        double newGlobalX = globalPosition.get(0);
-        double newGlobalY = globalPosition.get(1);
-        double newTheta = globalPosition.get(2);
-
-        // Update all the values
-        theta = newTheta;
-        previousCoordinateX = newGlobalX;
-        previousCoordinateY = newGlobalY;
-        leftWheelTurn = newLeftWheelTurn;
-        rightWheelTurn = newRightWheelTurn;
-    }
 
 
 

@@ -12,6 +12,28 @@ public class OdometryCalculationsPerpendicular {
     double radiusWheel1 = 1;
     double radiusWheel2 = 1;
 
+    public ArrayList getPositionReset(){
+        // Get local coordinates
+        double deltaX = getDeltaX();
+        double localCoordinateX = getLocalCoordinate(previousCoordinateX, deltaX);
+
+        double deltaY = getDeltaY();
+        double localCoordinateY = getLocalCoordinate(previousCoordinateY, deltaY);
+
+        // Add global coordinates to a list
+        double globalX = getGlobalX(localCoordinateX, localCoordinateY);
+        double globalY = getGlobalY(localCoordinateX, localCoordinateY);
+
+        // Reset the previousCoordinates to now be the current globalCoordiantes
+        getNewPreviousCoordinateX(globalX);
+        getNewPreviousCoordinateY(globalY);
+
+        ArrayList globalCoordinates = new ArrayList();
+        globalCoordinates.add(globalX);
+        globalCoordinates.add(globalY);
+        return globalCoordinates;
+    }
+
     // Getter functions
     public double getRadiansAngle(){
         return radiansAngle;
@@ -92,27 +114,7 @@ public class OdometryCalculationsPerpendicular {
         return globalY;
     }
 
-    public ArrayList getGlobalPositionAndResetPreviousPosition(){
-        // Get local coordinates
-        double deltaX = getDeltaX();
-        double localCoordinateX = getLocalCoordinate(previousCoordinateX, deltaX);
 
-        double deltaY = getDeltaY();
-        double localCoordinateY = getLocalCoordinate(previousCoordinateY, deltaY);
-
-        // Add global coordinates to a list
-        double globalX = getGlobalX(localCoordinateX, localCoordinateY);
-        double globalY = getGlobalY(localCoordinateX, localCoordinateY);
-
-        // Reset the previousCoordinates to now be the current globalCoordiantes
-        getNewPreviousCoordinateX(globalX);
-        getNewPreviousCoordinateY(globalY);
-
-        ArrayList globalCoordinates = new ArrayList();
-        globalCoordinates.add(globalX);
-        globalCoordinates.add(globalY);
-        return globalCoordinates;
-    }
 
 
 

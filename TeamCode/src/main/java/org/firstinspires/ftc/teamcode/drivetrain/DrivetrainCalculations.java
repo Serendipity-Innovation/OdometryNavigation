@@ -4,7 +4,7 @@ public class DrivetrainCalculations {
 
     public static int getFeetToTicks(double desiredFeet){
         // Setting up the ratios
-        double wheelCircumfrence = 0.104; //units in feet from CAD
+        double wheelCircumfrence = 7.854; //units in feet from CAD
         int ticksPerRotation = 1120;
 
         // Calculating the ratios
